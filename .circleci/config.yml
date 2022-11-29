@@ -203,7 +203,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: cimg/aws-node
+      - image: cimg/base:stable
     steps:
       - checkout
       - add_ssh_keys:
