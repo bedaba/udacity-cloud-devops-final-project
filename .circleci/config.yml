@@ -18,6 +18,7 @@ commands:
       - run:
           name: Install Ansible
           command: |
+              python3 get-pip.py
               python3 -m pip -V
               python3 -m pip install --user ansible
 
