@@ -20,9 +20,9 @@ commands:
           name: Install Ansible
           command: |
               sudo apt-get update
-              sudo apt install python3-pip -y
+              sudo apt install python3-pip
               python3 -m pip -V
-              python3 -m pip install --user ansible -y
+              python3 -m pip install --user ansible
 
 
   # Install_Nodejs:
