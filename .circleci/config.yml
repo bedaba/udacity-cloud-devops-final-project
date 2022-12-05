@@ -20,9 +20,23 @@ commands:
           name: Install Ansible
           command: |
               sudo apt-get update
-              sudo apt install python3-pip
+              sudo apt install python3-pip -y
               python3 -m pip -V
-              python3 -m pip install --user ansible
+              python3 -m pip install --user ansible -y
+
+
+  Install_Nodejs:
+    description: install node.js 13
+    steps:
+      - run:
+          name: Install Node.js 13
+          command: |
+            curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+            sudo apt install -y nodejs
+
+      # Use n version manager to use Node.js v13.8.0
+      sudo npm install -g n
+      sudo n 13.8.0
 
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
@@ -242,7 +256,7 @@ jobs:
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
-              curl https://kvdb.io/${KVDB_BUCKET}/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
+              # curl https://kvdb.io/${KVDB_BUCKET}/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
             fi
       - destroy-environment
       - revert-migrations
