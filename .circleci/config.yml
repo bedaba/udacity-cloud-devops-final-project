@@ -271,7 +271,7 @@ jobs:
       - install_awscli
       - Install_Nodejs
       - restore_cache:
-         keys: [frontend-deps]
+          keys: [frontend-deps]
       - run:
           name: Install dependencies
           command: |
@@ -281,11 +281,11 @@ jobs:
           name: Get backend url
           command: |
             BACKEND_PUBLIC_IP=$(aws ec2 describe-instances \
-              --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}"
-              --query 'Reservations[*].Instance[*].PublicIpAddress' \
+              --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].instances[*].PublicIpAddress' \
               --output text)
 
-            echo API_URL="http://${BACKEND_IP}:3030" >>frontend/.env
+            echo "API_URL=http://${BACKEND_PUBLIC_IP}:3030" >> frontend/.env
             cat frontend/.env
       - run:
           name: Deploy frontend objects
