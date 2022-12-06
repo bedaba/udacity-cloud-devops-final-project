@@ -35,7 +35,7 @@ commands:
               sudo apt-get install nodejs
 
   
-  
+
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
     parameters:
@@ -263,11 +263,12 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - install_awscli
       - Install_Nodejs
+      
       - restore_cache:
           keys: [frontend-deps]
       - run:
