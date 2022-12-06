@@ -31,8 +31,8 @@ commands:
       - run:
           name: Install Node.js 13
           command: |
-            curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
-            sudo apt-get install nodejs
+              curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+              sudo apt-get install nodejs
 
       # Use n version manager to use Node.js v13.8.0
       # sudo npm install -g n
