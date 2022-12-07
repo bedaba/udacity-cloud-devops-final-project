@@ -32,9 +32,10 @@ commands:
       - run:
         name: install nodejs
         command: |
-          curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - &&\
-          sudo apt-get install nodejs
-
+          curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+          sudo apt install -y nodejs
+          sudo npm install --global n
+          sudo n 13.8.0
 
 
 

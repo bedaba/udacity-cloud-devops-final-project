@@ -1,14 +1,16 @@
 ---
 
-
+- name: "Add Node.js from Nodesource"
+  become: true
+  shell: |
+    curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
 
 - name: "Install Node.js 13"
   become: true
-  shell: |
-    curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - &&\
-    sudo apt-get install nodejs
-    sudo npm install --global n
-    sudo n 13.8.0
+  apt:
+    name: ["node.js"]
+    state:  latest
+    update_cache: yes
 
 - name: "install PM2 Glopally"
   npm:
