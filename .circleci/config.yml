@@ -27,7 +27,7 @@ commands:
 
 
   install_node:
-    description: install node
+    description: Install Node.js 13
     steps:
       - run:
         name: Install Node.js 13
@@ -271,7 +271,7 @@ jobs:
     steps:
       - checkout
       - install_awscli
-      - InstallNodejs
+      - InstallNode
 
       - restore_cache:
           keys: [frontend-deps]
