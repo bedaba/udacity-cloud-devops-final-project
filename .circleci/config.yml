@@ -271,7 +271,7 @@ jobs:
     steps:
       - checkout
       - install_awscli
-      - install_nodeJS
+      # - install_nodeJS
 
       - restore_cache:
           keys: [frontend-deps]
