@@ -30,7 +30,7 @@ commands:
     description: install node
     steps:
       - run:
-        name: install nodejs
+        name: Install Node.js 13
         command: |
           curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
           sudo apt install -y nodejs
