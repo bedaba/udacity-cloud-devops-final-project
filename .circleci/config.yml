@@ -27,10 +27,10 @@ commands:
 
 
   InstallNodejs:
-    description: install node.js 13
+    description: installnodejs
     steps:
       - run:
-          name: Install Node.js 13
+          name: InstallNodejs
           command: |
               curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - &&\
               sudo apt-get install nodejs
@@ -271,7 +271,7 @@ jobs:
       - checkout
       - install_awscli
       - InstallNodejs
-      
+
       - restore_cache:
           keys: [frontend-deps]
       - run:
