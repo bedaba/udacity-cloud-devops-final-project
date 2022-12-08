@@ -635,27 +635,18 @@ jobs:
           TYPEORM_ENTITIES: $TYPEORM_ENTITIES
     steps:
       - checkout
-      # Add ssh keys with fingerprint
+      - install_ansible
       - add_ssh_keys:
           fingerprints: ["0f:6b:c6:07:9d:1e:8b:4e:23:01:88:7b:3d:85:ee:77"]
       - attach_workspace:
           at: ~/
       - run:
-          name: Install dependencies
-          command: |
-            apk add curl
-            apk add --upgrade bash
-            apk add --update ansible
-            apk add openssh-client
-            pip3 install awscli
-      - run:
           name: Configure server
           command: |
-            cat ~/project/.circleci/ansible/inventory.txt
-            export ANSIBLE_HOST_KEY_CHECKING=False
-            ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/configure-server.yml    
-      - destroy-environment:
-           workflow_id: '${CIRCLE_WORKFLOW_ID:0:7}'  
+             cd .circleci/ansible
+             cat inventory.txt
+             ansible-playbook -i inventory.txt configure-server.yml
+      - destroy-environment 
 
 
 
