@@ -507,29 +507,20 @@ jobs:
             - frontend/node_modules
   build-backend:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - build-backend
+          keys: [backend-deps]
       - run:
           name: Back-end build
-          working_directory: ./backend
           command: |
-            npm i
+            cd backend
+            npm install
             npm run build
-            cp .env dist/.env
-            pwd && ls -al
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - project/backend/dist
-            - project/backend/node_modules
       - save_cache:
-          key: build-backend
-          paths:
-            - backend/node_modules
+          paths: [backend/node_modules]
+          key: backend-deps
 
   test-backend:
     docker:
