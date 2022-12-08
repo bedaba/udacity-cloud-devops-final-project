@@ -621,18 +621,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: python:3.7-alpine3.11
-        environment:
-          NODE_ENV: "production"
-          VERSION: "1"
-          ENVIRONMENT: "production"
-          TYPEORM_CONNECTION: $TYPEORM_CONNECTION
-          TYPEORM_HOST: $TYPEORM_HOST
-          TYPEORM_USERNAME: $TYPEORM_USERNAME
-          TYPEORM_PASSWORD: $TYPEORM_PASSWORD
-          TYPEORM_DATABASE: $TYPEORM_DATABASE
-          TYPEORM_PORT: $TYPEORM_PORT
-          TYPEORM_ENTITIES: $TYPEORM_ENTITIES
+      - image: cimg/base:stable
     steps:
       - checkout
       - install_ansible
@@ -646,7 +635,8 @@ jobs:
              cd .circleci/ansible
              cat inventory.txt
              ansible-playbook -i inventory.txt configure-server.yml
-      - destroy-environment 
+      - destroy-environment     
+ 
 
 
 
