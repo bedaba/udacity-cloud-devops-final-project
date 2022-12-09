@@ -303,43 +303,66 @@ jobs:
 #       # Here's where you will add some code to rollback on failure      
 
 
-  # deploy-backend:
-  #   docker:
-  #     - image: cimg/base:stable
-  #   steps:
-  #     - checkout
-  #     - add_ssh_keys:
-  #         fingerprints: ["0f:6b:c6:07:9d:1e:8b:4e:23:01:88:7b:3d:85:ee:77"]
-  #     - run:
-  #         name: Deploy backend
-  #         command: |
-  #           export TYPEORM_HOST=$(aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
-  #           echo $TYPEORM_HOST >> .circleci/ansible/inventory.txt
-  #           cd backend
-  #           npm i
-  #           npm run build
-  #           tar -czf artifact.tar.gz dist/* package*
-  #           cp artifact.tar.gz ~/project/.circleci/ansible/roles/deploy/artifact.tar.gz
-  #           ls ../.circleci/ansible/roles/deploy/
-  #           cd ../.circleci/ansible
-  #           ansible-playbook -i inventory.txt deploy-backend.yml
+  deploy-backend:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - install_ansible
+      - install_awscli
+      - install_nodejs
+      - add_ssh_keys:
+          fingerprints: ["0f:6b:c6:07:9d:1e:8b:4e:23:01:88:7b:3d:85:ee:77"]
+      -attach_workspace:
+          at: ~/
+      - restore_cache:
+          key: [backend_deps]
+      - run:
+          name: install dependencies
+          command: |
+            cd backend
+            npm install
+      - run:
+          name: package Backend
+          command: |
+            cd backend  
+            npm run build
+            tar -czf artifact.tar.gz dist/* package*
+
+            cd --
+            cd backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
+      - run:
+          name: debloy backend
+          command: |
+            export TYPEORM_MIGRATIONS_DIR=./migrations
+            export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
+            export TYPEORM_MIGRATIONS=./migrations/*.ts
+
+            
+            cd .circleci/ansible
+            cat inventory.txt
+            ansible-playbook -i inventory.txt deploy-backend.yml
+
+
+      - destroy-environment
+      - revert-migrations     
       # Here's where you will add some code to rollback on failure  
                     
-#   deploy-backend:
-#     docker:
-#       # Docker image here that supports Ansible
-#     steps:
-#       # Checkout code from git
-#       # Add ssh keys with fingerprint
-#       # attach workspace
-#       - run:
-#           name: Install dependencies
-#           command: |
-#             # your code here
-#       - run:
-#           name: Deploy backend
-#           command: |
-#             # your code here
+  deploy-backend:
+    docker:
+      # Docker image here that supports Ansible
+    steps:
+      # Checkout code from git
+      # Add ssh keys with fingerprint
+      # attach workspace
+      - run:
+          name: Install dependencies
+          command: |
+            # your code here
+      - run:
+          name: Deploy backend
+          command: |
+            # your code here
 #       # Here's where you will add some code to rollback on failure  
 
 #   smoke-test:
@@ -424,8 +447,8 @@ workflows:
           requires: [configure-infrastructure]
       - deploy-frontend:
           requires: [run-migrations]
-      # - deploy-backend:
-      #     requires: [run-migrations]
+      - deploy-backend:
+          requires: [run-migrations]
       # - smoke-test:
       #     requires: [deploy-backend, deploy-frontend]
       # - cloudfront-update:
