@@ -329,7 +329,7 @@ jobs:
             tar -czf artifact.tar.gz dist/* package*
 
             cd ..
-            cd backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
+            cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
       - run:
           name: debloy backend
           command: |
