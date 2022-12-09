@@ -331,7 +331,7 @@ jobs:
             cd ..
             cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
       - run:
-          name: debloy backend
+          name: deploy backend
           command: |
             export TYPEORM_MIGRATIONS_DIR=./migrations
             export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
@@ -437,7 +437,7 @@ jobs:
       - run:
           name: Update cloudfront distribution
           command: |
-            aws cloudformation debloy \
+           aws cloudformation deploy \
               --template-file .circleci/files/cloudfront.yml \
               --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
               --stack-name InitialStack
