@@ -9,9 +9,8 @@ commands:
           name: Install Node.js 13
           command: |
             curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
-            sudo apt-get install -y nodejs
-            npm install -g n
-            sudo n 13.8.0
+            sudo apt install -y nodejs
+            
 
   install_awscli:
     description: Install AWS CLI v2
