@@ -404,13 +404,14 @@ jobs:
       - run:
           name: frontend smoke test
           command: |
-            FRONTEND_WEBSITE=http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website.${AWS_DEFAULT_REGION}.amazonaws.com
-            if curl -s $FRONTEND_WEBSITE | grep "Welcome"
+            URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-1.amazonaws.com"             
+            echo ${URL} 
+            if curl -s ${URL} | grep "Welcome"
             then
               exit 0
             else
               exit 1
-            fi
+            fi           
       - destroy-environment
       - revert-migrations
       
