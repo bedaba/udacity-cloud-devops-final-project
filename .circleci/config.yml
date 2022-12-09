@@ -284,17 +284,13 @@ jobs:
           name: Get backend url
           command: |
             BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" --query 'Reservations[*].instances[*].PublicIpAddress' --output text)
-            echo "API_URL=http://${BACKEND_PUBLIC_IP}:3030" >> frontend/.env
-            cat frontend/.env
-      - run:
-          name: Deploy frontend objects
-          command: |
+            echo "API_URL=http://$BACKEND_PUBLIC_IP:3030" 
             cd frontend
-            npm run build
+            echo "API_URL=http://$BACKEND_PUBLIC_IP:3030" > .env
+            npm install
+            npm run build:prod
+            # aws s3 sync dist s3://udapeople-project
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
-      
-      - destroy-environment
-      - revert-migrations
 #       # Here's where you will add some code to rollback on failure      
 
 
