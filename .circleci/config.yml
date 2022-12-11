@@ -2,6 +2,7 @@ version: 2.1
 
 commands:
 
+
   install_nodejs:
     description: Install Node.js 13
     steps:
@@ -10,6 +11,7 @@ commands:
           command: |
             curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
             sudo apt install -y nodejs
+       
             
 
   install_awscli:
