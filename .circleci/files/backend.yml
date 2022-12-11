@@ -37,5 +37,5 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub backend-${ID}
-        - key: project
-          Value: udapeople  
+        - key: Project
+          Value: Udapeople  
