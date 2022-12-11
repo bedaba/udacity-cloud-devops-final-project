@@ -45,7 +45,8 @@ async function bootstrap() {
       }
     },
   };
-  app.use(cors(corsOptions));
+  app.use(cors({  "origin": "*", "methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS"}));
+  // app.use(cors(corsOptions));
   app.useGlobalFilters(new ErrorFilter());
   await app.listen(config.PORT);
   logger.log(`Listening on port ${config.PORT}.`);
