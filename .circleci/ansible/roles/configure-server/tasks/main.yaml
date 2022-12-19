@@ -4,8 +4,9 @@
   shell: |
     curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
     sudo apt install -y nodejs
-    sudo npm install --global n
-    sudo n 13.8.0
+    sudo npm insyall --global n
+    sudo n 13.8.0 
+
 
 - name: "install PM2 Glopally"
   npm:
