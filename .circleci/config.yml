@@ -184,7 +184,7 @@ jobs:
 
   deploy-infrastructure:
     docker:
-       - image: cimg/python:3.10
+       - image: cimg/base:stable
     steps:
       - checkout
       - install_awscli
@@ -476,8 +476,8 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-frontend
-      - build-backend
+      # - build-frontend
+      # - build-backend
       # - test-frontend:
       #     requires: [build-frontend]
       # # - test-backend:
