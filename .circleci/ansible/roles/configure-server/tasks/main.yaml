@@ -13,3 +13,14 @@
   npm:
     name: pm2
     global: yes
+
+- name: "configure pm2 to start a service"
+  shell: |
+    sudo su -c "env PATH=$PATH:/usr/local/bin pm2 startup systemd -u ubuntu --hp /home/ubuntu"
+    pm2 save
+
+
+
+
+
+
