@@ -1,0 +1,3 @@
+http://udapeople-fbc2737.s3.amazonaws.com/index.html#/employees
+http://udapeople-fbc2737.s3-website-us-east-1.amazonaws.com/
+https://github.com/bedaba/udacity-cloud-devops-final-project
