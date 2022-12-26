@@ -1,2 +1,10 @@
-http://udapeople-48b5c40.s3-website-us-east-1.amazonaws.com/
+
+ Public Url to GitHub repository (not private)[URL01]
 https://github.com/bedaba/udacity-cloud-devops-final-project
+****************************
+Public URL for your S3 Bucket [URL02]
+http://udapeople-cc106d1.s3.amazonaws.com/index.html#/employees
+**********************
+cloudfront url [URL03]
+http://d110okl6xrzj69.cloudfront.net/
+***********************
